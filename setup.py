@@ -5,8 +5,11 @@ from pip._internal.req import parse_requirements
 with open('README.md', 'r') as readme_file:
     readme = readme_file.read()
 
-install_reqs = parse_requirements('requirements.txt', session=False)
-requirements = [str(ir.requirement) for ir in install_reqs]
+def read_requirements(file):
+    with open(file) as f:
+        return [line.strip() for line in f if line.strip() and not line.startswith("#")]
+
+requirements = read_requirements("requirements.txt")
 
 setup(
     name='pynipper-ng',
